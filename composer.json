@@ -1,0 +1,8 @@
+{
+	"name": "okinaka/tinyci",
+	"autoload": {
+		"psr-4": {
+			"okinaka\\Tinyci\\": "src/"
+		}
+	}
+}
