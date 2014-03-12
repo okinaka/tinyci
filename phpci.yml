@@ -1,3 +1,7 @@
 build_settings:
   verbose: true
 
+test:
+  php_code_sniffer:
+    standard: "PSR2"
+    path: "src"
