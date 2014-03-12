@@ -1,8 +1,19 @@
 {
-	"name": "okinaka/tinyci",
-	"autoload": {
-		"psr-4": {
-			"okinaka\\Tinyci\\": "src/"
-		}
+    "name"       : "okinaka/tinyci",
+    "description": "Very small continuous integration for PHP projects.",
+
+    "require": {
+        "symfony/yaml": "2.*"
+    },
+
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*",
+	"squizlabs/php_codesniffer": "1.*"
+    },
+
+    "autoload": {
+        "psr-4": {
+	    "TinyCI\\": "src/"
 	}
+    }
 }
