@@ -4,5 +4,8 @@ build_settings:
     - "vendor"
 
 test:
+  php_unit:
+    config:
+      - "phpunit.xml"
   php_code_sniffer:
     standard: "PSR2"
