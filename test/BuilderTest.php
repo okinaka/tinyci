@@ -6,7 +6,8 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->sut = new Builder();
+        $build = new Build();
+        $this->sut = new Builder($build);
     }
 
     public function testExecute()

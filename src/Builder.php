@@ -12,6 +12,16 @@ namespace TinyCI;
 
 class Builder
 {
+    /**
+     * @var \TinyCI\Build
+     */
+    private $build;
+
+    public function __construct(Build $build)
+    {
+        $this->build = $build;
+    }
+
     public function execute()
     {
     }
