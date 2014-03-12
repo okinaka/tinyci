@@ -13,3 +13,5 @@ test:
       - "phpunit.xml"
   php_code_sniffer:
     standard: "PSR2"
+  php_loc:
+
