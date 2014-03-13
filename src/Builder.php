@@ -10,6 +10,8 @@
 
 namespace TinyCI;
 
+use Symfony\Component\Process\Process;
+
 class Builder
 {
     /**
@@ -34,7 +36,31 @@ class Builder
         return $this->config->baseBuildDir . $dir;
     }
 
+    public function createWorkingCopy()
+    {
+        $dir = $this->getBuildDir();
+        $repo = $this->build->project->repository;
+        $branch = $this->build->project->branch;
+        $cmd = "git clone --progress --recursive {$repo} {$dir} --branch {$branch}";
+        return $this->runProcess($cmd);
+    }
+
+    public function deleteWorkingCopy()
+    {
+        $dir = $this->getBuildDir();
+        $cmd = sprintf('rm -rf %s', $dir);
+        return $this->runProcess($cmd);
+    }
+
     public function execute()
     {
+    }
+
+    private function runProcess($cmd)
+    {
+        $process = new Process($cmd);
+        $process->setTimeout(3600);
+        $process->run();
+        return $process->isSuccessful();
     }
 }
