@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "7d307a9ba1034851a9abf17697c2ec6f",
+    "hash": "35f5bec49e8bca548385ee10c6cf712f",
     "packages": [
         {
             "name": "symfony/yaml",
