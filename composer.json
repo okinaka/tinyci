@@ -1,8 +1,17 @@
 {
     "name"       : "okinaka/tinyci",
     "description": "Very small continuous integration for PHP projects.",
+    "homepage": "https://github.com/okinaka/tinyci",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "OKINAKA Kenshin",
+            "email": "okinakak@yahoo.co.jp"
+        }
+    ],
 
     "require": {
+        "php": ">=5.4.0",
         "symfony/yaml": "2.*"
     },
 
@@ -13,7 +22,7 @@
 
     "autoload": {
         "psr-4": {
-	    "TinyCI\\": "src/"
+	    "TinyCI": "src/"
 	}
     }
 }
