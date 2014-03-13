@@ -3,7 +3,8 @@ namespace TinyCI;
 
 class Build
 {
-    private $project;
+    public $project;
+    public $id;
 
     public function __construct(Project $project)
     {
