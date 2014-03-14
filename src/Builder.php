@@ -52,8 +52,21 @@ class Builder
         return $this->runProcess($cmd);
     }
 
+    public function log($message)
+    {
+        echo $message, "\n";
+    }
+
     public function execute()
     {
+        // setup.
+
+        // stage setup
+        // stage test
+        // stage complete
+        // stage success or failuer
+
+        // teardown.
     }
 
     private function runProcess($cmd)

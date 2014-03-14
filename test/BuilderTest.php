@@ -36,6 +36,19 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertThat($actual, $this->isTrue());
     }
 
+    public function testLog()
+    {
+        $message = 'log';
+        $expected = "log\n";
+
+        ob_start();
+        $this->sut->log($message);
+        $actual = ob_get_contents();
+        ob_end_clean();
+
+        $this->assertThat($actual, $this->equalTo($expected));
+    }
+
     public function testExecute()
     {
         $this->sut->execute();
