@@ -32,6 +32,8 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
         $actual = $this->sut->createWorkingCopy();
         $this->assertThat($actual, $this->isTrue());
 
+        $stageConfig = $this->sut->getStageConfig();
+
         $actual = $this->sut->deleteWorkingCopy();
         $this->assertThat($actual, $this->isTrue());
     }

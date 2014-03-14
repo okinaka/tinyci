@@ -11,6 +11,7 @@
 namespace TinyCI;
 
 use Symfony\Component\Process\Process;
+use Symfony\Component\Yaml\Parser as YamlParser;
 
 class Builder
 {
@@ -50,6 +51,16 @@ class Builder
         $dir = $this->getBuildDir();
         $cmd = sprintf('rm -rf %s', $dir);
         return $this->runProcess($cmd);
+    }
+
+    public function getStageConfig()
+    {
+        $path = $this->getBuildDir() . '/phpci.yml';
+        if (!is_file($path)) {
+            // BuildException()
+        }
+        $source = file_get_contents($path);
+        return (new YamlParser())->parse($source);
     }
 
     public function log($message)
