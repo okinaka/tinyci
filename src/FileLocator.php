@@ -16,7 +16,7 @@ class FileLocator
                 $this->paths []= $path;
             }
         }
-     }
+    }
 
     public function locate($names)
     {
