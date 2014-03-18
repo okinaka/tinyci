@@ -10,4 +10,10 @@ class Build
     {
         $this->project = $project;
     }
+
+    public function dir()
+    {
+        $dir = sprintf('/project%d-build%d', $this->project->id, $this->id);
+        return $this->project->baseBuildDir() . $dir;
+    }
 }
