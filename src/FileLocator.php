@@ -5,15 +5,17 @@ use Symfony\Component\Finder\Finder;
 
 class FileLocator
 {
+    private $paths = [];
+
     public function __construct($basedir)
     {
         $paths = [$basedir, $basedir . '/vendor/bin'];
+        $paths = array_merge(explode(':', getenv('PATH')), $paths);
         foreach ($paths as $path) {
             if (is_dir($path)) {
                 $this->paths []= $path;
             }
         }
-        $this->paths = array_merge(explode(':', getenv('PATH')), $this->paths);
     }
 
     public function locate($names)
