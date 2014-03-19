@@ -8,5 +8,5 @@ install:
 
 script:
   - vendor/bin/phpcs --standard=PSR2 src test
-  - vendor/bin/phpmd src test codesize,unusedcode,naming
+  - vendor/bin/phpmd src text codesize,unusedcode,naming
   - phpunit
