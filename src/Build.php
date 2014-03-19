@@ -1,9 +1,13 @@
 <?php
 namespace TinyCI;
 
+/**
+ * @SuppressWarnings(PHPMD.ShortVariable)
+ */
 class Build
 {
     public $project;
+
     public $id;
 
     public function __construct(Project $project)

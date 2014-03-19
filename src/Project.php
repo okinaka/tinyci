@@ -1,6 +1,9 @@
 <?php
 namespace TinyCI;
 
+/**
+ * @SuppressWarnings(PHPMD.ShortVariables)
+ */
 class Project
 {
     public $id;
