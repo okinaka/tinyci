@@ -7,6 +7,6 @@ install:
   - composer install
 
 script:
-  - vendor/bin/phpcs --standard=PSR2 src test
+  - vendor/bin/phpcs --standard=PSR2 src test *.php
   - vendor/bin/phpmd src text phpmd.xml
   - phpunit
