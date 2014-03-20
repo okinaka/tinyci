@@ -1,3 +1,3 @@
 <?php
 
-define('APP_DIR', __DIR__);
+define('APP', __DIR__);

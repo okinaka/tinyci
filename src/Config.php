@@ -10,6 +10,6 @@ class Config
 
     public function __construct()
     {
-        $this->baseBuildDir = dirname(__DIR__) . '/build';
+        $this->baseBuildDir = APP . '/build';
     }
 }

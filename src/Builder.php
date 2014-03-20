@@ -16,30 +16,18 @@ use Symfony\Component\Yaml\Parser as YamlParser;
 class Builder
 {
     /**
-     * @var \TinyCI\Config
-     */
-    private $config;
-
-    /**
      * @var \TinyCI\Build
      */
     private $build;
 
-    public function __construct(Config $config, Build $build)
+    public function __construct(Build $build)
     {
-        $this->config = $config;
         $this->build = $build;
-    }
-
-    public function getBuildDir()
-    {
-        $dir = sprintf('/project%d-build%d', $this->build->project->id, $this->build->id);
-        return $this->config->baseBuildDir . $dir;
     }
 
     public function createWorkingCopy()
     {
-        $dir = $this->getBuildDir();
+        $dir = $this->build->dir();
         $repo = $this->build->project->repository;
         $branch = $this->build->project->branch;
         $cmd = "git clone --progress --recursive {$repo} {$dir} --branch {$branch}";
@@ -48,19 +36,43 @@ class Builder
 
     public function deleteWorkingCopy()
     {
-        $dir = $this->getBuildDir();
+        $dir = $this->build->dir();
         $cmd = sprintf('rm -rf %s', $dir);
         return $this->runProcess($cmd);
     }
 
     public function getStageConfig()
     {
-        $path = $this->getBuildDir() . '/phpci.yml';
+        $path = $this->build->dir() . '/phpci.yml';
         if (!is_file($path)) {
             // BuildException()
         }
         $source = file_get_contents($path);
         return (new YamlParser())->parse($source);
+    }
+
+    public function executeStage($stage, $config)
+    {
+        if (!isset($config[$stage])) {
+            return true;
+        }
+        foreach ($config[$stage] as $task => $option) {
+            $result = $this->executeTask($task, $option);
+            if ($result === false) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public function executeTask($task, $option)
+    {
+        $class = 'TinyCI\\Task\\' . ucwords($task);
+        if (!class_exists($class)) {
+            return false;
+        }
+        $obj = new $class($this->build, $option);
+        return $obj->execute();
     }
 
     public function log($message)
