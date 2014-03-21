@@ -32,6 +32,19 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertThat($actual, $this->isTrue());
     }
 
+    public function testToCamelCase()
+    {
+        $names = [
+          'composer' => 'Composer',
+          'php_code_sniffer' => 'PhpCodeSniffer',
+          'php_unit' => 'PhpUnit',
+        ];
+        foreach ($names as $name => $expected) {
+            $actual = $this->sut->toCamelCase($name);
+            $this->assertThat($actual, $this->equalTo($expected));
+        }
+    }
+
     public function testLog()
     {
         $message = 'log';

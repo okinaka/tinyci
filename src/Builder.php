@@ -60,12 +60,17 @@ class Builder
 
     public function executeTask($task, $option)
     {
-        $class = 'TinyCI\\Task\\' . ucwords($task);
+        $class = 'TinyCI\\Task\\' . $this->toCamelCase($task);
         if (!class_exists($class)) {
             return false;
         }
         $obj = new $class($this->build, $option);
         return $obj->execute();
+    }
+
+    public function toCamelCase($name)
+    {
+        return str_replace(' ', '', ucwords(strtr($name, '_', ' ')));
     }
 
     public function log($message)
