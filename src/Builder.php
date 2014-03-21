@@ -14,8 +14,6 @@ use Symfony\Component\Yaml\Parser as YamlParser;
 
 class Builder
 {
-    use ProcessTrait;
-
     /**
      * @var \TinyCI\Build
      */
@@ -28,18 +26,12 @@ class Builder
 
     public function createWorkingCopy()
     {
-        $dir = $this->build->dir();
-        $repo = $this->build->project->repository;
-        $branch = $this->build->project->branch;
-        $cmd = "git clone --progress --recursive {$repo} {$dir} --branch {$branch}";
-        return $this->runProcess($cmd);
+        return $this->build->createWorkingCopy();
     }
 
     public function deleteWorkingCopy()
     {
-        $dir = $this->build->dir();
-        $cmd = sprintf('rm -rf %s', $dir);
-        return $this->runProcess($cmd);
+        return $this->build->deleteWorkingCopy();
     }
 
     public function getStageConfig()

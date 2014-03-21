@@ -23,4 +23,13 @@ class BuildTest extends \PHPUnit_Framework_TestCase
         $expected = dirname(__DIR__) . '/build/project1-build1';
         $this->assertThat($actual, $this->equalTo($expected));
     }
+
+    public function testCreateAndDeleteWorkingCopy()
+    {
+        $actual = $this->sut->createWorkingCopy();
+        $this->assertThat($actual, $this->isTrue());
+
+        $actual = $this->sut->deleteWorkingCopy();
+        $this->assertThat($actual, $this->isTrue());
+    }
 }
