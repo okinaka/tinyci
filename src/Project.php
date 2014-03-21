@@ -2,7 +2,7 @@
 namespace TinyCI;
 
 /**
- * @SuppressWarnings(PHPMD.ShortVariables)
+ * @SuppressWarnings(PHPMD.ShortVariable)
  */
 class Project
 {
