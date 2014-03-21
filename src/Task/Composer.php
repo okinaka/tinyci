@@ -1,12 +1,14 @@
 <?php
 namespace TinyCI\Task;
 
-use Symfony\Component\Process\Process;
 use TinyCI\Build;
 use TinyCI\FileLocator;
+use TinyCI\ProcessTrait;
 
 class Composer
 {
+    use ProcessTrait;
+
     public function __construct(Build $build, $option)
     {
         $this->build = $build;
@@ -30,13 +32,5 @@ class Composer
             $cmd = 'php ' . $cmd;
         }
         return $cmd;
-    }
-
-    private function runProcess($cmd)
-    {
-        $process = new Process($cmd);
-        $process->setTimeout(3600);
-        $process->run();
-        return $process->isSuccessful();
     }
 }

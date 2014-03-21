@@ -10,11 +10,12 @@
 
 namespace TinyCI;
 
-use Symfony\Component\Process\Process;
 use Symfony\Component\Yaml\Parser as YamlParser;
 
 class Builder
 {
+    use ProcessTrait;
+
     /**
      * @var \TinyCI\Build
      */
@@ -90,13 +91,5 @@ class Builder
         // stage success or failuer
 
         // teardown.
-    }
-
-    private function runProcess($cmd)
-    {
-        $process = new Process($cmd);
-        $process->setTimeout(3600);
-        $process->run();
-        return $process->isSuccessful();
     }
 }
