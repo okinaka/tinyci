@@ -1,6 +1,8 @@
 <?php
 namespace TinyCI;
 
+use Symfony\Component\Yaml\Parser as YamlParser;
+
 /**
  * @SuppressWarnings(PHPMD.ShortVariable)
  */
@@ -21,6 +23,16 @@ class Build
     {
         $dir = sprintf('/project%d-build%d', $this->project->id, $this->id);
         return $this->project->baseBuildDir() . $dir;
+    }
+
+    public function getStageConfig()
+    {
+        $path = $this->dir() . '/phpci.yml';
+        if (!is_file($path)) {
+            return false;
+        }
+        $source = file_get_contents($path);
+        return (new YamlParser())->parse($source);
     }
 
     public function createWorkingCopy()

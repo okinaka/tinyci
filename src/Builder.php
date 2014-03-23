@@ -10,8 +10,6 @@
 
 namespace TinyCI;
 
-use Symfony\Component\Yaml\Parser as YamlParser;
-
 class Builder
 {
     /**
@@ -36,12 +34,7 @@ class Builder
 
     public function getStageConfig()
     {
-        $path = $this->build->dir() . '/phpci.yml';
-        if (!is_file($path)) {
-            return false;
-        }
-        $source = file_get_contents($path);
-        return (new YamlParser())->parse($source);
+        return $this->build->getStageConfig();
     }
 
     public function executeStage($stage, $config)
@@ -84,7 +77,7 @@ class Builder
         $result = $this->build->createWorkingCopy();
 
         // load stage config
-        $stageConfig = $this->getStageConfig();
+        $stageConfig = $this->build->getStageConfig();
         $result &= is_array($stageConfig);
 
         // stage setup
