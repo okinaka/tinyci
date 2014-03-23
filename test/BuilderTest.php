@@ -60,6 +60,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testExecute()
     {
-        $this->sut->execute();
+        $actual = $this->sut->execute();
+        $this->assertThat($actual, $this->isTrue());
     }
 }

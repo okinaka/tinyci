@@ -38,7 +38,7 @@ class Builder
     {
         $path = $this->build->dir() . '/phpci.yml';
         if (!is_file($path)) {
-            // BuildException()
+            return false;
         }
         $source = file_get_contents($path);
         return (new YamlParser())->parse($source);
@@ -81,12 +81,28 @@ class Builder
     public function execute()
     {
         // setup.
+        $result = $this->build->createWorkingCopy();
+
+        // load stage config
+        $stageConfig = $this->getStageConfig();
+        $result &= is_array($stageConfig);
 
         // stage setup
+        $result &= $this->executeStage('setup', $stageConfig);
+
         // stage test
+        $result &= $this->executeStage('test', $stageConfig);
+
         // stage complete
+        $result &= $this->executeStage('complete', $stageConfig);
+
         // stage success or failuer
+        $stage = $result ? 'success' : 'failuer';
+        $result &= $this->executeStage($stage, $stageConfig);
 
         // teardown.
+        $result &= $this->build->deleteWorkingCopy();
+
+        return (bool)$result;
     }
 }
