@@ -22,7 +22,7 @@ class Build
     public function dir()
     {
         $dir = sprintf('project%d-build%d', $this->project->id, $this->id);
-        return $this->project->baseBuildDir() . $dir;
+        return $this->project->baseBuildDir() . $dir . DS;
     }
 
     public function getStageConfig()
@@ -37,7 +37,7 @@ class Build
 
     public function createWorkingCopy()
     {
-        $dir = $this->dir();
+        $dir = rtrim($this->dir(), DS);
         $repo = $this->project->repository;
         $branch = $this->project->branch;
         $cmd = "git clone --progress --recursive {$repo} {$dir} --branch {$branch}";
@@ -46,7 +46,7 @@ class Build
 
     public function deleteWorkingCopy()
     {
-        $dir = $this->dir();
+        $dir = rtrim($this->dir(), DS);
         $cmd = sprintf('rm -rf %s', $dir);
         return $this->runProcess($cmd);
     }
