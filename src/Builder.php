@@ -22,21 +22,6 @@ class Builder
         $this->build = $build;
     }
 
-    public function createWorkingCopy()
-    {
-        return $this->build->createWorkingCopy();
-    }
-
-    public function deleteWorkingCopy()
-    {
-        return $this->build->deleteWorkingCopy();
-    }
-
-    public function getStageConfig()
-    {
-        return $this->build->getStageConfig();
-    }
-
     public function executeStage($stage, $config)
     {
         if (!isset($config[$stage])) {
@@ -61,14 +46,14 @@ class Builder
         return $obj->execute();
     }
 
+    /**
+     * Convert snake_case_string to CamelCaseString.
+     * @param string
+     * @return string
+     */
     public function toCamelCase($name)
     {
         return str_replace(' ', '', ucwords(strtr($name, '_', ' ')));
-    }
-
-    public function log($message)
-    {
-        echo $message, "\n";
     }
 
     public function execute()
