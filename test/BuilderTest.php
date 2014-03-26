@@ -1,11 +1,15 @@
 <?php
 namespace TinyCI;
 
+use Monolog\Logger;
+
 class BuilderTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
         parent::setUp();
+
+        $logger = new Logger('BuilderTest');
 
         $project = new Project();
         $project->id = 1;
@@ -17,6 +21,7 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
         $build->id = 1;
 
         $this->sut = new Builder($build);
+        $this->sut->setLogger($logger);
     }
 
     public function testToCamelCase()

@@ -10,8 +10,12 @@
 
 namespace TinyCI;
 
+use Psr\Log\LoggerAwareTrait;
+
 class Builder
 {
+    use LoggerAwareTrait;
+
     /**
      * @var \TinyCI\Build
      */
@@ -27,9 +31,12 @@ class Builder
         if (!isset($config[$stage])) {
             return true;
         }
+        $this->logger->info("START: {$stage}");
+
         foreach ($config[$stage] as $task => $option) {
             $result = $this->executeTask($task, $option);
             if ($result === false) {
+                $this->logger->err("FAILUER: {$task}");
                 return false;
             }
         }
@@ -58,24 +65,27 @@ class Builder
 
     public function execute()
     {
-        // setup.
+        // before setup.
+        $this->logger->info('START: before setup');
         $result = $this->build->createWorkingCopy();
+        if (!$result) $this->logger->err('FAILURE: create working copy.');
 
-        // load stage config
+        // load config
         $stageConfig = $this->build->getStageConfig();
         $result &= is_array($stageConfig);
+        if (!$result) $this->logger->err('FAILURE: load config.');
 
-        // stage setup
+        // setup
         $result &= $this->executeStage('setup', $stageConfig);
 
-        // stage test
+        // test
         $result &= $this->executeStage('test', $stageConfig);
 
-        // stage complete
+        // complete
         $result &= $this->executeStage('complete', $stageConfig);
 
-        // stage success or failuer
-        $stage = $result ? 'success' : 'failuer';
+        // success or failuer
+        $stage = $result ? 'success' : 'failure';
         $result &= $this->executeStage($stage, $stageConfig);
 
         // teardown.
