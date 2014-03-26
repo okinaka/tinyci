@@ -9,9 +9,9 @@ class FileLocatorTest extends \PHPUnit_Framework_TestCase
         $actual = $sut->locate('FileLocatorTest.php');
         $this->assertThat($actual, $this->equalTo(__FILE__));
 
-        $sut = new FileLocator(dirname(__DIR__));
+        $sut = new FileLocator(APP);
         $actual = $sut->locate('phpunit');
-        $expected = dirname(__DIR__) . '/vendor/bin/phpunit';
+        $expected = APP . 'vendor' . DS . 'bin' . DS . 'phpunit';
         $this->assertThat($actual, $this->equalTo($expected));
     }
 }

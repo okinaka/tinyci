@@ -21,13 +21,13 @@ class Build
 
     public function dir()
     {
-        $dir = sprintf('/project%d-build%d', $this->project->id, $this->id);
+        $dir = sprintf('project%d-build%d', $this->project->id, $this->id);
         return $this->project->baseBuildDir() . $dir;
     }
 
     public function getStageConfig()
     {
-        $path = $this->dir() . '/phpci.yml';
+        $path = $this->dir() . 'phpci.yml';
         if (!is_file($path)) {
             return false;
         }

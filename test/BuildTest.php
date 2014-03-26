@@ -20,7 +20,7 @@ class BuildTest extends \PHPUnit_Framework_TestCase
     public function testDir()
     {
         $actual = $this->sut->dir();
-        $expected = dirname(__DIR__) . '/build/project1-build1';
+        $expected = APP . 'build' . DS . 'project1-build1';
         $this->assertThat($actual, $this->equalTo($expected));
     }
 

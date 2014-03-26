@@ -9,8 +9,8 @@ class FileLocator
 
     public function __construct($basedir)
     {
-        $paths = [$basedir, $basedir . '/vendor/bin'];
-        $paths = array_merge($paths, explode(':', getenv('PATH')));
+        $paths = [$basedir, $basedir . 'vendor' . DS . 'bin'];
+        $paths = array_merge($paths, explode(PATH_SEPARATOR, getenv('PATH')));
         foreach ($paths as $path) {
             if (is_dir($path)) {
                 $this->paths []= $path;

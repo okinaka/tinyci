@@ -11,6 +11,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     public function testBaseBuildDir()
     {
-        $this->assertThat($this->sut->baseBuildDir, $this->equalTo(dirname(__DIR__) . '/build'));
+        $this->assertThat($this->sut->baseBuildDir, $this->equalTo(APP . 'build' . DS));
     }
 }
