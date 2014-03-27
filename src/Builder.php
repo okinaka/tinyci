@@ -68,12 +68,16 @@ class Builder
         // before setup.
         $this->logger->info('START: before setup');
         $result = $this->build->createWorkingCopy();
-        if (!$result) $this->logger->err('FAILURE: create working copy.');
+        if (!$result) {
+            $this->logger->err('FAILURE: create working copy.');
+        }
 
         // load config
         $stageConfig = $this->build->getStageConfig();
         $result &= is_array($stageConfig);
-        if (!$result) $this->logger->err('FAILURE: load config.');
+        if (!$result) {
+            $this->logger->err('FAILURE: load config.');
+        }
 
         // setup
         $result &= $this->executeStage('setup', $stageConfig);
